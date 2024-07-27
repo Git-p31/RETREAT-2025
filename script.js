@@ -38,7 +38,9 @@ function displayCountries() {
 
 document.addEventListener("DOMContentLoaded", function() {
     // Обработчик события на клик кнопки "Участвовать"
-    document.getElementById('payButton').addEventListener('click', function() {
+    document.getElementById('payButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Отменяем стандартное действие формы
+
         // Получаем параметры из формы
         const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
         const email = document.getElementById('email').value;
