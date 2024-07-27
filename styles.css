@@ -1,0 +1,153 @@
+body {
+    background-color: #000;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #000;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    position: absolute;
+    font-weight: bold;
+    width: 172px;
+    text-align: center;
+    margin-top: -20px;
+    margin-left: -6px;
+}
+
+label[for="email"],
+label[for="phone"] {
+    margin-left: -44px;
+}
+label[for="email"],
+label[for="phone"] {
+    margin-left: -44    px; /* Смещение меток влево на 10px */
+}
+
+
+.form-group {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.centered-container {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+    padding: 12px;
+    border: 3px solid #666;
+    border-radius: 20px;
+    background-color: #222;
+    color: #fff;
+    font-size: 18px;
+    width: 480px;
+    height: 65px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+select {
+    width: 500px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 40px; /* Добавленный отступ сверху */
+}
+
+button#payButton {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    width: 200px;
+    border: none;
+    border-radius: 35px;
+    padding: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button#payButton:hover {
+    background-color: #0056b3;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+}
+
+td,
+th {
+    border: 1px solid #444;
+    padding: 15px;
+    text-align: left;
+}
+
+h2 {
+    text-align: center;
+    font-size: 32px;
+    color: #007bff;
+    margin-bottom: 40px;
+    margin-top: -20px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+.highlight {
+    background-color: #ffc107;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.card {
+    background-color: #222;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    margin-bottom: 40px;
+}
+
+
+
+.radio-text {
+    font-size: 24px; /* Увеличиваем размер текста */
+}
+
+.radio-buttons {
+    display: flex;
+    justify-content: space-between; /* Распределяем кнопки равномерно по контейнеру */
+}
+
+.radio-container {
+    font-size: 20px; /* Уменьшаем размер текста кнопок */
+    margin-right: 20px; /* Увеличиваем расстояние между кнопками */
+}
+
+.radio-container:last-child {
+    margin-right: 0; /* Убираем правый отступ у последней кнопки */
+}
