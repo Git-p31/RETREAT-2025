@@ -78,6 +78,11 @@ function sendToCRM(data) {
     addRowToCRM(data);
 }
 
+function addRowToCRM(data) {
+    // Здесь вы можете добавить код для отправки данных в вашу CRM систему
+    console.log('Данные добавлены в CRM:', data);
+}
+
 function processPayment(fullName, totalPrice) {
     // Функция для обработки платежа и получения QR-кода
     return new Promise((resolve) => {

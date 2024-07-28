@@ -119,23 +119,3 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         addRowToCRM(data);
-
-        if (paymentOption === 'retreat') {
-            generateQRCode(`Оплата не произведена. ID: ${currentId}`);
-        } else {
-            // Логика онлайн оплаты и генерации QR кода
-        }
-    });
-});
-
-function generateQRCode(text) {
-    const qrCodeContainer = document.getElementById('qrCodeContainer');
-    const qrCode = document.getElementById('qrCode');
-    qrCode.innerHTML = '';
-    new QRCode(qrCode, {
-        text: text,
-        width: 128,
-        height: 128
-    });
-    qrCodeContainer.classList.remove('hidden');
-}
