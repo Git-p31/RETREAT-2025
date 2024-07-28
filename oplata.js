@@ -1,4 +1,3 @@
-// oplata.js
 document.addEventListener("DOMContentLoaded", function() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -67,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     });
                 })
                 .catch(error => {
-                    console.error('Ошибка при оплате:', error);
                     alert('Произошла ошибка при оплате. Пожалуйста, попробуйте снова.');
                 });
         }
@@ -77,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function sendToCRM(data) {
     // Функция для отправки данных в CRM
     console.log('Отправка данных в CRM:', data);
-    // addRowToCRM(data); // Закомментируем, так как функция не определена
+    addRowToCRM(data);
 }
 
 function processPayment(fullName, totalPrice) {
