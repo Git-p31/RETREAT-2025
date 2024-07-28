@@ -5,7 +5,6 @@ function addRow() {
     const newRow = table.insertRow();
     newRow.setAttribute('data-id', currentId);
 
-    // Добавляем ячейку для ID
     const idCell = newRow.insertCell(0);
     idCell.textContent = currentId;
 
@@ -18,7 +17,6 @@ function addRow() {
         cell.appendChild(input);
     });
 
-    // Добавляем ячейку для статуса оплаты
     const statusCell = newRow.insertCell(fields.length + 1);
     statusCell.textContent = 'не оплачено';
 
@@ -64,12 +62,24 @@ function addRowToCRM(data) {
     const newRow = table.insertRow();
     newRow.setAttribute('data-id', currentId);
 
-    // Добавляем ячейку для ID
     const idCell = newRow.insertCell(0);
     idCell.textContent = currentId;
 
     // Заполняем ячейки данными
-    Object.values(data).forEach((value, index) => {
+    const values = [
+        data.fullName,
+        data.email,
+        data.phone,
+        data.service,
+        data.country,
+        data.city,
+        data.needTranslation,
+        data.morningSessions.join(', '), // объединяем сессии в строку
+        data.eveningSessions.join(', '), // объединяем сессии в строку
+        data.paymentStatus
+    ];
+
+    values.forEach((value, index) => {
         const cell = newRow.insertCell(index + 1);
         const input = document.createElement('input');
         input.type = 'text';
@@ -78,11 +88,7 @@ function addRowToCRM(data) {
         cell.appendChild(input);
     });
 
-    // Добавляем ячейку для статуса оплаты
-    const statusCell = newRow.insertCell(10);
-    statusCell.textContent = data.paymentStatus;
-
-    const actionsCell = newRow.insertCell(11);
+    const actionsCell = newRow.insertCell(values.length + 1);
     const editButton = document.createElement('button');
     editButton.textContent = 'Редактировать';
     editButton.onclick = () => editRow(newRow);
@@ -113,9 +119,11 @@ document.addEventListener("DOMContentLoaded", function() {
             country: 'Россия',
             city: 'Москва',
             needTranslation: 'Нет',
-            morningSessions: 'Утренняя сессия',
-            eveningSessions: 'Вечерняя сессия',
+            morningSessions: ['Утренняя сессия 1', 'Утренняя сессия 2'],
+            eveningSessions: ['Вечерняя сессия 1'],
             paymentStatus: paymentOption === 'retreat' ? 'не оплачено' : 'оплачено'
         };
 
         addRowToCRM(data);
+    });
+});
