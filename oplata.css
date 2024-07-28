@@ -1,4 +1,3 @@
-/* Общие стили для страницы */
 body, html {
     height: 100%;
     margin: 0;
@@ -8,17 +7,14 @@ body, html {
     color: #fff;
 }
 
-/* Стили для контейнера */
 .container {
     width: 80%;
     margin: 0 auto;
     text-align: center;
     padding: 20px;
-    /* Добавляем подсветку */
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-/* Стили для заголовка */
 header {
     margin-bottom: 40px;
 }
@@ -28,25 +24,22 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* Стили для абзацев */
 p {
     font-size: 18px;
     margin-bottom: 30px;
 }
 
-/* Стили для раздела с деталями оплаты */
 #paymentDetails {
     margin-bottom: 40px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    /* Добавляем подсветку */
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
     transition: 0.3s;
 }
 
 #paymentDetails:hover {
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4); /* Изменяем тень при наведении */
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4);
 }
 
 #paymentDetails p,
@@ -62,7 +55,6 @@ p {
     transform: translateY(0);
 }
 
-/* Стили для кнопки оплаты */
 button {
     padding: 15px 30px;
     border: none;
@@ -71,8 +63,8 @@ button {
     color: #fff;
     font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Добавляем анимацию для тени */
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Добавляем тень */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
 button:disabled {
@@ -82,5 +74,5 @@ button:disabled {
 
 button:hover:enabled {
     background-color: #0056b3;
-    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5); /* Изменяем тень при наведении */
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
 }

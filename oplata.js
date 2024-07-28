@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Получаем параметры из URL
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    // Извлекаем параметры из URL
     const fullName = urlParams.get('fullName');
     const email = urlParams.get('email');
     const phone = urlParams.get('phone');
@@ -14,10 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const morningSessions = urlParams.getAll('morningSession');
     const eveningSessions = urlParams.getAll('eveningSession');
 
-    // Вычисляем сумму для утренних и вечерних сессий
-    const morningSessionPrice = 100; // Цена за утреннюю сессию (гривны)
-    const eveningSessionPrice = 50; // Цена за вечернюю сессию (гривны)
-    const translationPrice = 20; // Цена за перевод (гривны)
+    const morningSessionPrice = 100;
+    const eveningSessionPrice = 50;
+    const translationPrice = 20;
 
     const totalMorningSessions = morningSessions.length * morningSessionPrice;
     const totalEveningSessions = eveningSessions.length * eveningSessionPrice;
@@ -25,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const totalPrice = totalMorningSessions + totalEveningSessions + totalTranslation;
 
-    // Строим текст для отображения деталей оплаты
     let paymentDetailsHTML = `
         <p><strong>ФИО:</strong> ${fullName}</p>
         <p><strong>E-mail:</strong> ${email}</p>
@@ -47,19 +43,50 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     paymentDetailsHTML += `</ul><p><strong>Сумма к оплате:</strong> ${totalPrice} грн</p>`;
-
-    // Вставляем детали оплаты на страницу
     document.getElementById('paymentDetails').innerHTML = paymentDetailsHTML;
 
-    // Находим кнопку оплаты
     const payButton = document.getElementById('payButton');
-
-    // Добавляем текст с суммой к кнопке оплаты
     payButton.innerText += ` (${totalPrice} грн)`;
 
-    // Добавляем обработчик события для кнопки оплаты
     payButton.addEventListener('click', function() {
-        // Здесь будет код для обработки оплаты, который вы хотите добавить
-        // Например, перенаправление пользователя на страницу оплаты или другие действия
+        const paymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
+
+        if (paymentOption === 'retreat') {
+            sendToCRM({ 
+                fullName, email, phone, service, country, city, needTranslation, morningSessions, eveningSessions, totalPrice, paymentStatus: 'не оплачено' 
+            });
+        } else {
+            processPayment(fullName, totalPrice)
+                .then(qrCode => {
+                    displayQRCode(qrCode);
+                    sendToCRM({ 
+                        fullName, email, phone, service, country, city, needTranslation, morningSessions, eveningSessions, totalPrice, paymentStatus: 'оплачено' 
+                    });
+                })
+                .catch(error => {
+                    alert('Произошла ошибка при оплате. Пожалуйста, попробуйте снова.');
+                });
+        }
     });
 });
+
+function sendToCRM(data) {
+    // Функция для отправки данных в CRM
+    console.log('Отправка данных в CRM:', data);
+    addRowToCRM(data);
+}
+
+function processPayment(fullName, totalPrice) {
+    // Функция для обработки платежа и получения QR-кода
+    return new Promise((resolve, reject) => {
+        // Имитация успешного платежа и получения QR-кода
+        setTimeout(() => {
+            resolve('QR_CODE_PLACEHOLDER');
+        }, 2000);
+    });
+}
+
+function displayQRCode(qrCode) {
+    // Функция для отображения QR-кода
+    alert(`Ваш QR-код: ${qrCode}`);
+}
