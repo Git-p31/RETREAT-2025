@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
             sendToCRM({ 
                 fullName, email, phone, service, country, city, needTranslation, morningSessions, eveningSessions, totalPrice, paymentStatus: 'не оплачено' 
             });
+            alert('Данные отправлены в CRM.');
         } else {
             processPayment(fullName, totalPrice)
                 .then(qrCode => {
@@ -81,12 +82,22 @@ function processPayment(fullName, totalPrice) {
     return new Promise((resolve, reject) => {
         // Имитация успешного платежа и получения QR-кода
         setTimeout(() => {
-            resolve('QR_CODE_PLACEHOLDER');
+            resolve(`QR code for ${fullName} - Total: ${totalPrice} грн`);
         }, 2000);
     });
 }
 
 function displayQRCode(qrCode) {
     // Функция для отображения QR-кода
-    alert(`Ваш QR-код: ${qrCode}`);
+    const qrCodeContainer = document.getElementById('qrCodeContainer');
+    qrCodeContainer.classList.remove('hidden');
+
+    const qrCodeElement = document.getElementById('qrCode');
+    qrCodeElement.innerHTML = '';
+
+    const qr = new QRCode(qrCodeElement, {
+        text: qrCode,
+        width: 128,
+        height: 128,
+    });
 }

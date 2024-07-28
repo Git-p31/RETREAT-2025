@@ -38,14 +38,6 @@ p {
     transition: 0.3s;
 }
 
-/* Убираем скрытие и анимацию */
-#paymentDetails p,
-#paymentDetails ul {
-    opacity: 1;
-    transform: translateY(0);
-    transition: none;
-}
-
 button {
     padding: 15px 30px;
     border: none;
@@ -66,4 +58,12 @@ button:disabled {
 button:hover:enabled {
     background-color: #0056b3;
     box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+}
+
+.hidden {
+    display: none;
+}
+
+#qrCodeContainer {
+    margin-top: 20px;
 }

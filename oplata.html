@@ -11,9 +11,7 @@
         <header>
             <h1>Добро пожаловать на ретрит!</h1>
         </header>
-        <section id="paymentDetails">
-
-        </section>
+        <section id="paymentDetails"></section>
         <label>
             <input type="radio" name="paymentOption" value="retreat" checked> Оплатить на ретрите
         </label>
@@ -21,8 +19,13 @@
             <input type="radio" name="paymentOption" value="online"> Оплатить сейчас
         </label>
         <button id="payButton" class="medium-button">Оплатить</button>
+        <div id="qrCodeContainer" class="hidden">
+            <h2>Ваш QR-код:</h2>
+            <div id="qrCode"></div>
+        </div>
     </div>
 
     <script src="oplata.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode"></script>
 </body>
 </html>
