@@ -1,31 +1,16 @@
-var countries = [
-    "Австралия", "Австрия", "Азербайджан", "Албания", "Алжир", "Ангола", "Андорра", "Антигуа и Барбуда",
-    "Аргентина", "Армения", "Афганистан", "Багамские Острова", "Бангладеш", "Барбадос", "Бахрейн", "Беларусь",
-    "Белиз", "Бельгия", "Бенин", "Болгария", "Боливия", "Босния и Герцеговина", "Ботсвана", "Бразилия",
-    "Бруней", "Буркина-Фасо", "Бурунди", "Бутан", "Вануату", "Ватикан", "Великобритания", "Венгрия",
-    "Венесуэла", "Вьетнам", "Габон", "Гаити", "Гайана", "Гамбия", "Гана", "Гватемала", "Гвинея", "Гвинея-Бисау",
-    "Германия", "Гондурас", "Гренада", "Греция", "Грузия", "Дания", "Джибути", "Доминика", "Доминиканская Республика",
-    "Египет", "Замбия", "Зимбабве", "Израиль", "Индия", "Индонезия", "Иордания", "Ирак", "Иран", "Ирландия",
-    "Исландия", "Испания", "Италия", "Йемен", "Кабо-Верде", "Казахстан", "Камбоджа", "Камерун", "Канада",
-    "Катар", "Кения", "Кипр", "Киргизия", "Кирибати", "Китай", "Колумбия", "Коморы", "Конго (Браззавиль)",
-    "Конго (Киншаса)", "Коста-Рика", "Кот-д'Ивуар", "Куба", "Кувейт", "Лаос", "Латвия", "Лесото", "Либерия",
-    "Ливан", "Ливия", "Литва", "Лихтенштейн", "Люксембург", "Маврикий", "Мавритания", "Мадагаскар", "Македония",
-    "Малави", "Малайзия", "Мали", "Мальдивы", "Мальта", "Марокко", "Маршалловы Острова", "Мексика", "Микронезия",
-    "Мозамбик", "Молдова", "Монако", "Монголия", "Мьянма", "Намибия", "Науру", "Непал", "Нигер", "Нигерия",
-    "Нидерланды", "Никарагуа", "Новая Зеландия", "Норвегия", "ОАЭ", "Оман", "Пакистан", "Палау", "Панама",
-    "Папуа – Новая Гвинея", "Парагвай", "Перу", "Польша", "Португалия", "Россия", "Руанда", "Румыния",
-    "Сальвадор", "Самоа", "Сан-Марино", "Сан-Томе и Принсипи", "Саудовская Аравия", "Свазиленд", "Сейшельские Острова",
-    "Сенегал", "Сент-Винсент и Гренадины", "Сент-Китс и Невис", "Сент-Люсия", "Сербия", "Сингапур", "Сирия",
-    "Словакия", "Словения", "США", "Соломоновы Острова", "Сомали", "Судан", "Суринам", "Сьерра-Леоне",
-    "Таджикистан", "Таиланд", "Танзания", "Тимор-Лесте", "Того", "Тонга", "Тринидад и Тобаго", "Тувалу", "Тунис",
-    "Туркменистан", "Турция", "Уганда", "Узбекистан", "Украина", "Уругвай", "Фиджи", "Филиппины", "Финляндия",
-    "Франция", "Хорватия", "ЦАР", "Чад", "Черногория", "Чехия", "Чили", "Швейцария", "Швеция", "Шри-Ланка",
-    "Эквадор", "Экваториальная Гвинея", "Эритрея", "Эсватини", "Эстония", "Эфиопия", "ЮАР", "Южный Судан",
-    "Ямайка", "Япония"
-];
+// Функция для загрузки стран из текстового файла и отображения их в выпадающем списке
+function loadCountries() {
+    fetch('countries.txt')
+        .then(response => response.text())
+        .then(data => {
+            const countries = data.split('\n').map(country => country.trim()).filter(country => country !== '');
+            displayCountries(countries);
+        })
+        .catch(error => console.error('Ошибка при загрузке списка стран:', error));
+}
 
 // Функция для отображения стран в выпадающем списке
-function displayCountries() {
+function displayCountries(countries) {
     var select = document.getElementById('country');
     countries.sort(); // Сортируем страны по алфавиту
     for (var i = 0; i < countries.length; i++) {
@@ -51,9 +36,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const morningSessions = getCheckedSessions('morningSession');
         const eveningSessions = getCheckedSessions('eveningSession');
         const needTranslation = document.getElementById('needTranslationYes').checked ? 'yes' : 'no';
+        const pinCode = document.getElementById('pinCode').value;
 
         // Строим URL для перенаправления на oplata.html с параметрами
-        let redirectURL = `oplata.html?fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&needTranslation=${needTranslation}`;
+        let redirectURL = `oplata.html?fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&needTranslation=${needTranslation}&pinCode=${encodeURIComponent(pinCode)}`;
 
         // Добавляем параметры выбранных сессий
         morningSessions.forEach(session => {
@@ -67,8 +53,8 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = redirectURL;
     });
     
-    // Отображение списка стран при загрузке страницы
-    displayCountries();
+    // Загрузка и отображение списка стран при загрузке страницы
+    loadCountries();
 });
 
 // Функция для получения выбранных сессий
@@ -80,3 +66,25 @@ function getCheckedSessions(sessionType) {
     });
     return sessionValues;
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Обработчик события на клик кнопки "Ввести пин-код"
+    document.getElementById('pinButton').addEventListener('click', function() {
+        document.getElementById('pinContainer').classList.remove('hidden');
+    });
+
+    // Обработчик события на клик кнопки "Подтвердить"
+    document.getElementById('submitPin').addEventListener('click', function() {
+        const pinCode = document.getElementById('pinCode').value;
+        
+        // Здесь вы можете добавить логику проверки пин-кода
+        
+        // Если пин-код верный, перенаправляем пользователя на Crm.html
+        if (pinCode === "1995") {
+            window.location.href = "Crm.html";
+        } else {
+            alert("Неверный пин-код. Попробуйте снова.");
+        }
+    });
+});
