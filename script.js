@@ -67,24 +67,3 @@ function getCheckedSessions(sessionType) {
     return sessionValues;
 }
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Обработчик события на клик кнопки "Ввести пин-код"
-    document.getElementById('pinButton').addEventListener('click', function() {
-        document.getElementById('pinContainer').classList.remove('hidden');
-    });
-
-    // Обработчик события на клик кнопки "Подтвердить"
-    document.getElementById('submitPin').addEventListener('click', function() {
-        const pinCode = document.getElementById('pinCode').value;
-        
-        // Здесь вы можете добавить логику проверки пин-кода
-        
-        // Если пин-код верный, перенаправляем пользователя на Crm.html
-        if (pinCode === "1995") {
-            window.location.href = "Crm.html";
-        } else {
-            alert("Неверный пин-код. Попробуйте снова.");
-        }
-    });
-});
