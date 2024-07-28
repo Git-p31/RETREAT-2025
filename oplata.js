@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     });
                 })
                 .catch(error => {
+                    console.error('Ошибка при оплате:', error);
                     alert('Произошла ошибка при оплате. Пожалуйста, попробуйте снова.');
                 });
         }
@@ -76,14 +77,16 @@ document.addEventListener("DOMContentLoaded", function() {
 function sendToCRM(data) {
     // Функция для отправки данных в CRM
     console.log('Отправка данных в CRM:', data);
-    addRowToCRM(data);
+    // addRowToCRM(data); // Закомментируем, так как функция не определена
 }
 
 function processPayment(fullName, totalPrice) {
     // Функция для обработки платежа и получения QR-кода
     return new Promise((resolve) => {
         // Имитация успешного платежа и получения QR-кода
-        resolve(`QR code for ${fullName} - Total: ${totalPrice} грн`);
+        setTimeout(() => {
+            resolve(`QR code for ${fullName} - Total: ${totalPrice} грн`);
+        }, 2000);
     });
 }
 
@@ -121,4 +124,3 @@ function generateId() {
     // Функция для генерации случайного ID
     return Math.floor(Math.random() * 1000000);
 }
-    
