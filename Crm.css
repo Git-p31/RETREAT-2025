@@ -1,16 +1,16 @@
-body {
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    padding: 20px;
-}
-
-h1 {
-    text-align: center;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 th, td {
@@ -24,13 +24,8 @@ th {
 }
 
 button {
-    margin-top: 20px;
+    margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-}
-
-input {
-    width: 100%;
-    box-sizing: border-box;
 }

@@ -100,3 +100,42 @@ function addRowToCRM(data) {
 
     currentId++;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const payButton = document.getElementById('payButton');
+    payButton.addEventListener('click', function() {
+        const paymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
+        const data = {
+            fullName: 'Иван Иванов',
+            email: 'ivan@example.com',
+            phone: '1234567890',
+            service: 'Техническая поддержка',
+            country: 'Россия',
+            city: 'Москва',
+            needTranslation: 'Нет',
+            morningSessions: 'Утренняя сессия',
+            eveningSessions: 'Вечерняя сессия',
+            paymentStatus: paymentOption === 'retreat' ? 'не оплачено' : 'оплачено'
+        };
+
+        addRowToCRM(data);
+
+        if (paymentOption === 'retreat') {
+            generateQRCode(`Оплата не произведена. ID: ${currentId}`);
+        } else {
+            // Логика онлайн оплаты и генерации QR кода
+        }
+    });
+});
+
+function generateQRCode(text) {
+    const qrCodeContainer = document.getElementById('qrCodeContainer');
+    const qrCode = document.getElementById('qrCode');
+    qrCode.innerHTML = '';
+    new QRCode(qrCode, {
+        text: text,
+        width: 128,
+        height: 128
+    });
+    qrCodeContainer.classList.remove('hidden');
+}

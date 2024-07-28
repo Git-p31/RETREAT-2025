@@ -1,3 +1,4 @@
+// oplata.js
 document.addEventListener("DOMContentLoaded", function() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -80,11 +81,9 @@ function sendToCRM(data) {
 
 function processPayment(fullName, totalPrice) {
     // Функция для обработки платежа и получения QR-кода
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         // Имитация успешного платежа и получения QR-кода
-        setTimeout(() => {
-            resolve(`QR code for ${fullName} - Total: ${totalPrice} грн`);
-        }, 2000);
+        resolve(`QR code for ${fullName} - Total: ${totalPrice} грн`);
     });
 }
 
@@ -122,3 +121,4 @@ function generateId() {
     // Функция для генерации случайного ID
     return Math.floor(Math.random() * 1000000);
 }
+    
