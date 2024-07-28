@@ -51,11 +51,14 @@ document.addEventListener("DOMContentLoaded", function() {
     payButton.addEventListener('click', function() {
         const paymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
 
+        const crmData = { 
+            fullName, email, phone, service, country, city, needTranslation, morningSessions, eveningSessions, totalPrice, paymentStatus: paymentOption === 'retreat' ? 'не оплачено' : 'оплачено' 
+        };
+
+        // Отправляем данные во второй файл
+        sendToCRM(crmData);
+
         if (paymentOption === 'retreat') {
-            const crmData = { 
-                fullName, email, phone, service, country, city, needTranslation, morningSessions, eveningSessions, totalPrice, paymentStatus: 'не оплачено' 
-            };
-            sendToCRM(crmData);
             generateQRCode(`ID: ${generateId()} - Оплата не выполнена`);
         } else {
             processPayment(fullName, totalPrice)
@@ -73,20 +76,13 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function sendToCRM(data) {
-    // Функция для отправки данных в CRM
-    console.log('Отправка данных в CRM:', data);
-    addRowToCRM(data);
-}
-
-function addRowToCRM(data) {
-    // Здесь вы можете добавить код для отправки данных в вашу CRM систему
-    console.log('Данные добавлены в CRM:', data);
+    // Используем CustomEvent для передачи данных
+    const event = new CustomEvent('crmData', { detail: data });
+    document.dispatchEvent(event);
 }
 
 function processPayment(fullName, totalPrice) {
-    // Функция для обработки платежа и получения QR-кода
     return new Promise((resolve) => {
-        // Имитация успешного платежа и получения QR-кода
         setTimeout(() => {
             resolve(`QR code for ${fullName} - Total: ${totalPrice} грн`);
         }, 2000);
@@ -94,7 +90,6 @@ function processPayment(fullName, totalPrice) {
 }
 
 function displayQRCode(qrCode) {
-    // Функция для отображения QR-кода
     const qrCodeContainer = document.getElementById('qrCodeContainer');
     qrCodeContainer.classList.remove('hidden');
 
@@ -109,7 +104,6 @@ function displayQRCode(qrCode) {
 }
 
 function generateQRCode(text) {
-    // Функция для генерации и отображения QR-кода для "Оплатить на ретрите"
     const qrCodeContainer = document.getElementById('qrCodeContainer');
     qrCodeContainer.classList.remove('hidden');
 
@@ -124,6 +118,5 @@ function generateQRCode(text) {
 }
 
 function generateId() {
-    // Функция для генерации случайного ID
     return Math.floor(Math.random() * 1000000);
 }
