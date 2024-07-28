@@ -52,10 +52,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const paymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
 
         if (paymentOption === 'retreat') {
-            sendToCRM({ 
+            const crmData = { 
                 fullName, email, phone, service, country, city, needTranslation, morningSessions, eveningSessions, totalPrice, paymentStatus: 'не оплачено' 
-            });
-            alert('Данные отправлены в CRM.');
+            };
+            sendToCRM(crmData);
+            generateQRCode(`ID: ${generateId()} - Оплата не выполнена`);
         } else {
             processPayment(fullName, totalPrice)
                 .then(qrCode => {
@@ -100,4 +101,24 @@ function displayQRCode(qrCode) {
         width: 128,
         height: 128,
     });
+}
+
+function generateQRCode(text) {
+    // Функция для генерации и отображения QR-кода для "Оплатить на ретрите"
+    const qrCodeContainer = document.getElementById('qrCodeContainer');
+    qrCodeContainer.classList.remove('hidden');
+
+    const qrCodeElement = document.getElementById('qrCode');
+    qrCodeElement.innerHTML = '';
+
+    const qr = new QRCode(qrCodeElement, {
+        text: text,
+        width: 128,
+        height: 128,
+    });
+}
+
+function generateId() {
+    // Функция для генерации случайного ID
+    return Math.floor(Math.random() * 1000000);
 }
