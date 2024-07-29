@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2>Регистрация на ретрит 2025</h2>
-        <form>
+        <form id="registrationForm">
             <div class="form-group">
                 <div class="name-container">
                     <label class="label" for="firstName">Имя:</label>
@@ -122,21 +122,10 @@
             </div>
             
             <div class="button-container">
-                <button id="payButton" type="submit" class="medium-button">Участвовать</button>
+                <button id="payButton" type="button" class="medium-button">Участвовать</button>
             </div>
         </form>
     </div>
-
-    <form id="registrationForm">
-
-
-        <div id="pinButton"></div>
-        <div id="pinContainer" class="hidden">
-            <input type="password" id="pinCode" placeholder="Введите пин-код">
-            <button id="submitPin" type="button">Подтвердить</button>
-        </div>
-    </form>
-</div>
     <script src="script.js"></script>
 </body>
 </html>

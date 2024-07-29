@@ -1,4 +1,5 @@
-// Функция для загрузки стран из текстового файла и отображения их в выпадающем списке
+// script.js
+
 function loadCountries() {
     fetch('countries.txt')
         .then(response => response.text())
@@ -36,10 +37,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const morningSessions = getCheckedSessions('morningSession');
         const eveningSessions = getCheckedSessions('eveningSession');
         const needTranslation = document.getElementById('needTranslationYes').checked ? 'yes' : 'no';
-        const pinCode = document.getElementById('pinCode').value;
 
         // Строим URL для перенаправления на oplata.html с параметрами
-        let redirectURL = `oplata.html?fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&needTranslation=${needTranslation}&pinCode=${encodeURIComponent(pinCode)}`;
+        let redirectURL = `oplata.html?fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&needTranslation=${needTranslation}`;
 
         // Добавляем параметры выбранных сессий
         morningSessions.forEach(session => {
@@ -66,4 +66,3 @@ function getCheckedSessions(sessionType) {
     });
     return sessionValues;
 }
-
