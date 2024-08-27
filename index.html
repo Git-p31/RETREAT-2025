@@ -16,21 +16,32 @@
                     <input type="text" id="firstName" name="firstName" placeholder="Имя" required>
                 </div>
                 <div class="name-container">
+                    <label class="label" for="middleName">Отчество:</label>
+                    <input type="text" id="middleName" name="middleName" placeholder="Отчество">
+                </div>
+                <div class="name-container">
                     <label class="label" for="lastName">Фамилия:</label>
                     <input type="text" id="lastName" name="lastName" placeholder="Фамилия" required>
                 </div>
             </div>
-            
+
             <div class="centered-container">
                 <label class="label" for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="example@example.com" required>
             </div>
-            
+
             <div class="centered-container">
                 <label class="label" for="phone">Телефон:</label>
-                <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
+                <div class="phone-container">
+                    <div class="phone-code-container">
+                        <input type="text" id="phoneCode" name="phoneCode" readonly placeholder="Телефон">
+                        <ul id="phoneCodeList" class="phone-code-list">
+                            <!-- Список кодов стран будет добавлен здесь -->
+                        </ul>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="centered-container">
                 <label class="label" for="service">Выберите служение:</label>
                 <select id="service" name="service" required>
@@ -44,22 +55,16 @@
                     <option value="popechenie">Попечение</option>
                     <option value="konsultirovanie">Консультирование</option>
                     <option value="kapellan">Капеллан</option>
-                    <option value="drugoe">Другое</option>
+                    <option value="drugoe">Жена пастора или раввина</option>
+                    <option value="drugoe">Помощник пастора или раввина</option>
                 </select>
             </div>
 
             <div class="centered-container">
-                <label class="label" for="country">Выберите страну:</label>
-                <select id="country" name="country" required>
-                    <option value="">Выберите страну</option>
-                </select>
-            </div>
-            
-            <div class="centered-container">
-                <label class="label" for="city">Выберите город:</label>
+                <label class="label" for="city">Город:</label>
                 <input type="text" id="city" name="city" placeholder="Город" required>
             </div>
-            
+
             <div class="centered-container">
                 <label class="label">День участия:</label>
                 <table class="smaller-table">
@@ -120,7 +125,7 @@
                     </label>
                 </div>
             </div>
-            
+
             <div class="button-container">
                 <button id="payButton" type="button" class="medium-button">Участвовать</button>
             </div>
