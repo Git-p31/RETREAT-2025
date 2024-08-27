@@ -1,6 +1,6 @@
 body {
     background-color: #000; /* Черный фон */
-    color: #fff; /* Белый текст */
+    color: #5900ff; /* Белый текст */
     font-family: Arial, sans-serif;
     padding: 20px;
     margin: 0;
@@ -9,54 +9,86 @@ body {
 .container {
     margin: 0 auto;
     padding: 40px;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); /* Красная тень */
+    background-color: rgba(0, 0, 0, 0.8); /* Темный фон */
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 143, 232, 0.5); /* Голубая тень */
     max-width: 800px;
+    position: relative;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid #008FE8; /* Голубая рамка */
+    border-radius: 10px;
+    z-index: -1;
+}
+
+h2 {
+    text-align: center;
+    color: #008FE8; /* Голубой заголовок */
+    margin-bottom: 30px;
 }
 
 .label {
     font-weight: bold;
     color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     display: block;
 }
 
 .form-group {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
+    gap: 20px; /* Интервал между элементами */
     margin-bottom: 20px;
 }
 
 .name-container {
-    width: 48%;
+    flex: 1;
+    min-width: 220px; /* Минимальная ширина */
 }
 
 input[type="text"],
 input[type="email"],
 input[type="tel"],
-select {
+select,
+input[type="date"] {
     padding: 12px;
-    border: 3px solid #666;
-    border-radius: 20px;
-    background-color: #222;
-    color: #fff;
-    font-size: 18px;
+    border: 2px solid #666;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff; /* Белый текст в полях ввода */
+    font-size: 16px;
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+input[type="date"]:focus {
+    border-color: #008FE8; /* Голубая граница при фокусе */
+    outline: none;
 }
 
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    background: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23008FE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M6 9l6 6 6-6"%3E%3C/path%3E%3C/svg%3E') no-repeat right 10px center;
+    background-color: #333; /* Черный фон для select */
+    color: #fff; /* Белый текст для select */
 }
 
 .centered-container {
-    text-align: left;
     margin-bottom: 20px;
 }
 
@@ -65,99 +97,95 @@ select {
     margin-top: 20px;
 }
 
-button#payButton,
-button.pin-button,
-#pinForm button {
-    background-color: #ff4b5c;
+button#payButton {
+    background-color: #008FE8; /* Голубая кнопка */
     color: #fff;
     cursor: pointer;
-    width: 200px;
+    width: 100%;
+    max-width: 300px;
     border: none;
-    border-radius: 35px;
+    border-radius: 30px;
     padding: 12px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
-button#payButton:hover,
-button.pin-button:hover,
-#pinForm button:hover {
-    background-color: #ff1c33;
+button#payButton:hover {
+    background-color: #0076b6; /* Темнее голубой при наведении */
 }
 
-table {
+.smaller-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-td,
-th {
-    border: 1px solid #444;
-    padding: 15px;
-    text-align: left;
-    color: #fff;
+.smaller-table th,
+.smaller-table td {
+    border: 1px solid #666;
+    padding: 12px;
+    text-align: center;
+    background-color: #222;
 }
 
-h2 {
-    text-align: center;
-    color: #ff4b5c;
+.smaller-table th {
+    background-color: #333;
+    color: #008FE8; /* Голубой заголовок таблицы */
 }
 
 .radio-buttons {
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    gap: 15px;
 }
 
 .radio-container {
     display: flex;
     align-items: center;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
 }
 
-input[type="radio"] {
-    display: none;
-}
-
-.radio-text {
-    margin-left: 10px;
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 }
 
 .checkmark {
-    height: 25px;
-    width: 25px;
-    background-color: #444;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
-    position: relative;
-    display: inline-block;
+    background-color: #444;
 }
 
-input[type="radio"]:checked + .radio-text + .checkmark {
-    background-color: #ff4b5c;
+.radio-container input:checked ~ .checkmark {
+    background-color: #008FE8; /* Голубой цвет для выбранного радио */
 }
 
-.checkmark::after {
+.checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-input[type="radio"]:checked + .radio-text + .checkmark::after {
+.radio-container input:checked ~ .checkmark:after {
     display: block;
 }
 
-input[type="radio"] + .radio-text + .checkmark::after {
-    top: 8px;
-    left: 8px;
-    width: 9px;
-    height: 9px;
+.radio-container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: white;
 }
 
-.smaller-table td,
-.smaller-table th {
-    padding: 5px;
-    text-align: center;
-}

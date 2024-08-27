@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форма регистрации</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/l10n/ru.min.css"> <!-- Подключаем локализацию -->
 </head>
 <body>
     <div class="container">
@@ -16,13 +19,23 @@
                     <input type="text" id="firstName" name="firstName" placeholder="Имя" required>
                 </div>
                 <div class="name-container">
-                    <label class="label" for="middleName">Отчество:</label>
-                    <input type="text" id="middleName" name="middleName" placeholder="Отчество">
-                </div>
-                <div class="name-container">
                     <label class="label" for="lastName">Фамилия:</label>
                     <input type="text" id="lastName" name="lastName" placeholder="Фамилия" required>
                 </div>
+                <div class="name-container">
+                    <label class="label" for="middleName">Отчество:</label>
+                    <input type="text" id="middleName" name="middleName" placeholder="Отчество">
+                </div>
+            </div>
+
+            <div class="centered-container">
+                <label class="label" for="birthDate">Дата рождения:</label>
+                <input type="text" id="birthDate" name="birthDate" placeholder="Дата рождения" required>
+            </div>
+
+            <div class="centered-container">
+                <label class="label" for="church">Церковь/Община:</label>
+                <input type="text" id="church" name="church" placeholder="Церковь/Община" required>
             </div>
 
             <div class="centered-container">
@@ -32,13 +45,8 @@
 
             <div class="centered-container">
                 <label class="label" for="phone">Телефон:</label>
-                <div class="phone-container">
-                    <div class="phone-code-container">
-                        <input type="text" id="phoneCode" name="phoneCode" readonly placeholder="Телефон">
-                        <ul id="phoneCodeList" class="phone-code-list">
-                            <!-- Список кодов стран будет добавлен здесь -->
-                        </ul>
-                    </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" class="form-control" placeholder="Телефон">
                 </div>
             </div>
 
@@ -56,7 +64,7 @@
                     <option value="konsultirovanie">Консультирование</option>
                     <option value="kapellan">Капеллан</option>
                     <option value="drugoe">Жена пастора или раввина</option>
-                    <option value="drugoe">Помощник пастора или раввина</option>
+                    <option value="pomoshchnik">Помощник пастора или раввина</option>
                 </select>
             </div>
 
@@ -127,10 +135,21 @@
             </div>
 
             <div class="button-container">
-                <button id="payButton" type="button" class="medium-button">Участвовать</button>
+                <button id="payButton" type="submit" class="medium-button">Участвовать</button>
             </div>
         </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/l10n/ru.min.js"></script> <!-- Подключаем локализацию -->
     <script src="script.js"></script>
+    <script>
+        // Инициализация календаря для даты рождения
+        flatpickr("#birthDate", {
+            dateFormat: "d.m.Y",
+            maxDate: "today",
+            locale: "ru" // Устанавливаем русский язык
+        });
+    </script>
 </body>
 </html>
