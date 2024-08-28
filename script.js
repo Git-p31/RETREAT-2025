@@ -1,5 +1,3 @@
-// script.js
-
 function loadCountries() {
     fetch('countries.txt')
         .then(response => response.text())
@@ -28,18 +26,28 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault(); // Отменяем стандартное действие формы
 
         // Получаем параметры из формы
-        const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const middleName = document.getElementById('middleName').value;
+        const birthDate = document.getElementById('birthDate').value;
+        const church = document.getElementById('church').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
         const service = document.getElementById('service').value;
-        const country = document.getElementById('country').value;
+        const country = document.getElementById('country').value; // Получаем выбранную страну
         const city = document.getElementById('city').value;
         const morningSessions = getCheckedSessions('morningSession');
         const eveningSessions = getCheckedSessions('eveningSession');
         const needTranslation = document.getElementById('needTranslationYes').checked ? 'yes' : 'no';
 
+        // Рассчитываем стоимость
+        const morningSessionCost = 100;
+        const eveningSessionCost = 50;
+        const translationCost = needTranslation === 'yes' ? 50 : 0;
+        const totalCost = (morningSessions.length * morningSessionCost) + (eveningSessions.length * eveningSessionCost) + translationCost;
+
         // Строим URL для перенаправления на oplata.html с параметрами
-        let redirectURL = `oplata.html?fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&needTranslation=${needTranslation}`;
+        let redirectURL = `oplata.html?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&middleName=${encodeURIComponent(middleName)}&birthDate=${encodeURIComponent(birthDate)}&church=${encodeURIComponent(church)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&needTranslation=${needTranslation}&totalCost=${totalCost}`;
 
         // Добавляем параметры выбранных сессий
         morningSessions.forEach(session => {
@@ -55,6 +63,13 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Загрузка и отображение списка стран при загрузке страницы
     loadCountries();
+    
+    // Инициализация ввода телефона с использованием intl-tel-input
+    const phoneInput = document.querySelector('#phone');
+    intlTelInput(phoneInput, {
+        initialCountry: "UA",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
 });
 
 // Функция для получения выбранных сессий
@@ -66,12 +81,3 @@ function getCheckedSessions(sessionType) {
     });
     return sessionValues;
 }
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const phoneInput = document.querySelector('#phone');
-    intlTelInput(phoneInput, {
-        initialCountry: "UA",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-    });
-});

@@ -46,7 +46,7 @@
             <div class="centered-container">
                 <label class="label" for="phone">Телефон:</label>
                 <div class="form-group">
-                    <input type="tel" id="phone" class="form-control" placeholder="Телефон">
+                    <input type="tel" id="phone" class="form-control" placeholder="Телефон" required>
                 </div>
             </div>
 
@@ -65,6 +65,15 @@
                     <option value="kapellan">Капеллан</option>
                     <option value="drugoe">Жена пастора или раввина</option>
                     <option value="pomoshchnik">Помощник пастора или раввина</option>
+                </select>
+            </div>
+
+            <!-- New Country Selection Field -->
+            <div class="centered-container">
+                <label class="label" for="country">Страна:</label>
+                <select id="country" name="country" required>
+                    <option value="">Выберите страну</option>
+                    <!-- Добавьте другие страны по мере необходимости -->
                 </select>
             </div>
 
@@ -149,6 +158,13 @@
             dateFormat: "d.m.Y",
             maxDate: "today",
             locale: "ru" // Устанавливаем русский язык
+        });
+
+        // Инициализация intl-tel-input для выбора страны и форматирования номера телефона
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
     </script>
 </body>

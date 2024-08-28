@@ -1,45 +1,86 @@
-// oplata.js
-
 document.addEventListener("DOMContentLoaded", function() {
-    const payButton = document.getElementById("payButton");
-    const paymentDetails = document.getElementById("paymentDetails");
-
-    // Расчет общей суммы
-    const morningSessionPrice = 100;
-    const eveningSessionPrice = 50;
-    const translatorPrice = 20;
-
-    // Получение параметров из URL
+    // Получаем параметры из URL
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Получаем данные из URL и отображаем
-    let detailsHTML = '<h2>Ваши данные:</h2>';
-    detailsHTML += `<p><strong>Имя:</strong> ${urlParams.get('fullName')}</p>`;
-    detailsHTML += `<p><strong>E-mail:</strong> ${urlParams.get('email')}</p>`;
-    detailsHTML += `<p><strong>Телефон:</strong> ${urlParams.get('phone')}</p>`;
-    detailsHTML += `<p><strong>Служение:</strong> ${urlParams.get('service')}</p>`;
-    detailsHTML += `<p><strong>Страна:</strong> ${urlParams.get('country')}</p>`;
-    detailsHTML += `<p><strong>Город:</strong> ${urlParams.get('city')}</p>`;
+    // Заполняем личную информацию
+    document.getElementById('fullName').textContent = `${urlParams.get('firstName') || ''} ${urlParams.get('lastName') || ''} ${urlParams.get('middleName') || ''}`;
+    document.getElementById('birthDate').textContent = urlParams.get('birthDate') || '';
+    document.getElementById('church').textContent = urlParams.get('church') || '';
+    document.getElementById('email').textContent = urlParams.get('email') || '';
+    document.getElementById('phone').textContent = urlParams.get('phone') || '';
+    document.getElementById('service').textContent = urlParams.get('service') || '';
+    document.getElementById('city').textContent = urlParams.get('city') || '';
 
-    // Получаем выбранные сессии
+    // Заполняем дни участия
     const morningSessions = urlParams.getAll('morningSession');
     const eveningSessions = urlParams.getAll('eveningSession');
-    
-    // Расчет стоимости
-    let totalAmount = 0;
-    totalAmount += morningSessions.length * morningSessionPrice;
-    totalAmount += eveningSessions.length * eveningSessionPrice;
-    if (urlParams.get('needTranslation') === 'yes') {
-        totalAmount += translatorPrice;
-    }
+    const sessionsList = document.getElementById('sessionsList');
 
-    detailsHTML += `<p><strong>Общая стоимость:</strong> ${totalAmount} гривен</p>`;
+    morningSessions.forEach(session => {
+        const li = document.createElement('li');
+        li.textContent = `Утренняя сессия: ${session}`;
+        sessionsList.appendChild(li);
+    });
 
-    // Отображение данных
-    paymentDetails.innerHTML = detailsHTML;
+    eveningSessions.forEach(session => {
+        const li = document.createElement('li');
+        li.textContent = `Вечерняя сессия: ${session}`;
+        sessionsList.appendChild(li);
+    });
 
-    payButton.addEventListener("click", function() {
-        // Имитация успешной оплаты
-        alert("Оплата успешно проведена!");
+    // Заполняем информацию о переводе
+    const needTranslation = urlParams.get('needTranslation') === 'yes' ? 'Да' : 'Нет';
+    document.getElementById('translation').textContent = needTranslation;
+
+    // Отображаем итоговую стоимость
+    document.getElementById('totalCost').textContent = urlParams.get('totalCost') || '0';
+
+    // Элементы модального окна
+    const modal = document.getElementById('paymentModal');
+    const qrCodeContainer = document.getElementById('qrCodeContainer');
+    const qrCodeImage = document.getElementById('qrCode');
+    const payNowButton = document.getElementById('payNowButton');
+    const cashPaymentButton = document.getElementById('cashPaymentButton');
+    const cardPaymentButton = document.getElementById('cardPaymentButton');
+    const closeModalButton = document.querySelector('.close-button');
+
+    // Показ модального окна по нажатию на кнопку "Оплатить сейчас"
+    payNowButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+        setTimeout(() => modal.querySelector('.modal-content').classList.add('show'), 0); // Показываем с анимацией
+    });
+
+    // Закрытие модального окна по нажатию на кнопку закрытия
+    closeModalButton.addEventListener('click', () => {
+        modal.querySelector('.modal-content').classList.remove('show');
+        setTimeout(() => modal.style.display = 'none', 300); // Закрываем с задержкой для анимации
+    });
+
+    // Обработка оплаты наличными
+    cashPaymentButton.addEventListener('click', () => {
+        const qrData = `
+            Имя: ${urlParams.get('firstName') || ''} ${urlParams.get('lastName') || ''} ${urlParams.get('middleName') || ''}
+            Дата рождения: ${urlParams.get('birthDate') || ''}
+            Церковь/Община: ${urlParams.get('church') || ''}
+            Email: ${urlParams.get('email') || ''}
+            Телефон: ${urlParams.get('phone') || ''}
+            Служение: ${urlParams.get('service') || ''}
+            Город: ${urlParams.get('city') || ''}
+            Дни участия: ${morningSessions.join(', ')} ${eveningSessions.join(', ')}
+            Нужен перевод: ${needTranslation}
+            Итоговая сумма: ${urlParams.get('totalCost') || '0'} грн
+            Статус: Ожидает оплаты наличными
+        `.trim();
+
+        // Генерация QR-кода
+        const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=200x200`;
+        qrCodeImage.src = qrCodeURL;
+        qrCodeContainer.classList.remove('hidden');
+    });
+
+    // Обработка оплаты картой (для будущей реализации)
+    cardPaymentButton.addEventListener('click', () => {
+        alert('Вы будете перенаправлены на страницу оплаты картой.');
+        // Перенаправление на платёжный сервис в будущем
     });
 });
